@@ -1,14 +1,17 @@
 import { useState } from "react";
 import axios from "axios";
+import { useParams } from "react-router-dom/cjs/react-router-dom";
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
+  const { token } = useParams();
   const handlePasswordChange = (ev) => {
     setPassword(ev.target.value);
   };
+
   const handleSubmit = (ev) => {
     ev.preventDefault();
     axios
-      .post("/auth/resetpassword", { password })
+      .post("/auth/resetpassword" + token, { password })
       .then(({ data }) => {
         console.log(data);
       })

@@ -67,7 +67,7 @@ function App() {
               <ProtectBizLogin path="/editshow" component={EditShow} />
               <ProtectBizLogin path="/myshows" component={MyShows} />
               <Route path="/forgotpassword" component={ForgotPassword} />
-              <Route path="/resetpassword" component={ResetPassword} />
+              <Route path="/resetpassword/:token" component={ResetPassword} />
               <Route path="/aboutus" component={AboutUs} />
               <Route path="*" component={PageNotFound} />
             </Switch>
