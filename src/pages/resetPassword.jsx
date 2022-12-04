@@ -11,7 +11,7 @@ const ResetPassword = () => {
   const handleSubmit = (ev) => {
     ev.preventDefault();
     axios
-      .post("/auth/resetpassword" + token, { password })
+      .post("/auth/resetpassword/" + token, { password })
       .then(({ data }) => {
         console.log(data);
       })

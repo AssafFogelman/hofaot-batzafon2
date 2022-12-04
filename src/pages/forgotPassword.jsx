@@ -8,7 +8,7 @@ const ForgotPassword = () => {
   const handleSubmit = (ev) => {
     ev.preventDefault();
     axios
-      .post("/auth/forgotpassword", { email })
+      .post("/auth/forgotpassword/", { email })
       .then(({ data }) => {
         console.log(data);
       })

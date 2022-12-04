@@ -16,7 +16,7 @@ import store from "./store/index";
 import "react-toastify/dist/ReactToastify.css";
 
 /* config axios */
-axios.defaults.baseURL = `http://localhost:8182/api`; //`${process.env.REACT_APP_DOMAIN}/api`;
+axios.defaults.baseURL = `${process.env.REACT_APP_DOMAIN}/api`;
 
 axios.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
