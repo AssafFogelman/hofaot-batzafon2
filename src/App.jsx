@@ -21,6 +21,8 @@ import "./App.scss";
 import { useSelector } from "react-redux";
 import ForgotPassword from "pages/forgotPassword";
 import ResetPassword from "pages/resetPassword";
+import Forbidden from "pages/forbidden";
+import ProtectResetPassword from "protected routes/protectResetPassword";
 
 function App() {
   const [inLoggingProcess, setInLoggingProcess] = useState(true);
@@ -67,8 +69,12 @@ function App() {
               <ProtectBizLogin path="/editshow" component={EditShow} />
               <ProtectBizLogin path="/myshows" component={MyShows} />
               <Route path="/forgotpassword" component={ForgotPassword} />
-              <Route path="/resetpassword/:token" component={ResetPassword} />
+              <ProtectResetPassword
+                path="/resetpassword/:token"
+                component={ResetPassword}
+              />
               <Route path="/aboutus" component={AboutUs} />
+              <Route path="/403" component={Forbidden} />
               <Route path="*" component={PageNotFound} />
             </Switch>
           )}

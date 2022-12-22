@@ -1,18 +1,36 @@
 import { useState } from "react";
 import axios from "axios";
+import validate from "validation/validate";
+import forgotPasswordSchema from "validation/forgotPassword.validation";
 const ForgotPassword = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState({ email: "" });
+  const [emailError, setEmailError] = useState(false);
+
   const handleEmailChange = (ev) => {
-    setEmail(ev.target.value);
+    setEmail({ email: ev.target.value });
   };
-  const handleSubmit = (ev) => {
-    ev.preventDefault();
+
+  const removeErrorAlerts = () => {
+    setEmailError(false);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const { error, value: validatedValue } = validate(
+      email,
+      forgotPasswordSchema
+    );
+    if (error) {
+      setEmailError(true);
+      return;
+    }
     axios
-      .post("/auth/forgotpassword/", { email })
+      .post("/users/forgotpassword/", validatedValue)
       .then(({ data }) => {
         console.log(data);
       })
       .catch((err) => {
+        setEmailError(true);
         console.log(err);
       });
   };
@@ -23,13 +41,15 @@ const ForgotPassword = () => {
           Email address
         </label>
         <input
-          type="email"
+          type="text"
           className="form-control"
           id="exampleInputEmail1"
           aria-describedby="emailHelp"
           onChange={handleEmailChange}
-          value={email}
+          value={email.email}
+          onFocus={removeErrorAlerts}
         />
+        {emailError ? <p style={{ color: "red" }}>not a valid email</p> : ""}
         <div id="emailHelp" className="form-text">
           We'll never share your email with anyone else.
         </div>

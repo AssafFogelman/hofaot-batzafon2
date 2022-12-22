@@ -43,7 +43,7 @@ const Login = () => {
       setInputError((current) => {
         let copyOfInputError = JSON.parse(JSON.stringify(current));
         for (let field of error.details) {
-          /* "field" is either "email" of "password". the word comes from the Joi error object */
+          /* "field" is either "email" or "password". the word comes from the Joi error object */
           copyOfInputError[field.path[0]] = true;
         }
         return copyOfInputError;
@@ -153,7 +153,13 @@ const Login = () => {
         </div>
         <div className="mb-3">
           <p>
-            not registered? <Link to="/register">register here</Link>
+            not registered? register as a <Link to="/registeruser">user</Link>{" "}
+            or a <Link to="/registerbusiness">business</Link>
+          </p>
+        </div>
+        <div className="mb-3">
+          <p>
+            forgot password? <Link to="/forgotpassword">click here</Link>
           </p>
         </div>
         <button
