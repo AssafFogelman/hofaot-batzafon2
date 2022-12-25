@@ -1,6 +1,6 @@
 import Joi from "joi-browser";
 
-const businessRegisterationSchema = {
+const businessRegistrationSchema = {
   name: Joi.string().min(2).max(255).required(),
   email: Joi.string().min(6).max(255).required().email(),
   /* password must contain at least one lowercase letter, one uppercase letter, at least one digit, and minimum 8 characters */
@@ -19,4 +19,4 @@ const businessRegisterationSchema = {
     .regex(/^https:\/\/(www\.|)waze\.com\/.*?/),
 };
 
-export default businessRegisterationSchema;
+export default businessRegistrationSchema;

@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { authActions } from "store/auth";
-import businessRegisterationSchema from "validation/register_biz.validation";
+import businessRegistrationSchema from "validation/register_biz.validation";
 import validate from "validation/validate";
 
 const initialregBizInputs = {
@@ -41,13 +41,12 @@ const RegisterBusiness = () => {
     setInputError(copyOfInputError);
   };
 
-  const handleFormSumbit = (event) => {
+  const handleFormSubmit = (event) => {
     event.preventDefault();
 
-    /* user-side Joi vlidation */
-    const { error } = validate(regBizInputs, businessRegisterationSchema);
+    /* user-side Joi validation */
+    const { error } = validate(regBizInputs, businessRegistrationSchema);
     if (error) {
-      console.log("there was an error", error.details);
       setInputError((current) => {
         let copyOfInputError = JSON.parse(JSON.stringify(current));
         for (let field of error.details) {
@@ -68,7 +67,8 @@ const RegisterBusiness = () => {
             password: regBizInputs.password,
           })
           .then((response) => {
-            console.log("login was successful!", response);
+            //login was successful
+
             localStorage.setItem("token", response.data.token);
             /* sending the content of the token to a redux variable */
             let tokenData = jwt_decode(response.data.token);
@@ -84,9 +84,8 @@ const RegisterBusiness = () => {
             dispatch(authActions.saveUserInfo(copyOfRegBizInputs));
           })
           .catch((error) => {
-            console.log("error", error);
             toast.error(
-              `an error occured when sending data to the server for logging-in: ${error.response.data}`,
+              `an error occurred when sending data to the server for logging-in: ${error.response.data}`,
               {
                 position: "top-right",
                 autoClose: 5000,
@@ -104,9 +103,8 @@ const RegisterBusiness = () => {
         history.push("/addshow");
       })
       .catch((error) => {
-        console.log("error", error);
         toast.error(
-          `an error occured when sending data to the server for regestering: ${error.response.data}`,
+          `an error occurred when sending data to the server for registering: ${error.response.data}`,
           {
             position: "top-right",
             autoClose: 5000,
@@ -254,7 +252,7 @@ const RegisterBusiness = () => {
         <button
           type="submit"
           className="btn btn-primary"
-          onClick={handleFormSumbit}
+          onClick={handleFormSubmit}
         >
           Submit
         </button>

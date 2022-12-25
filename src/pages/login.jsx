@@ -1,8 +1,8 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Fragment } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { authActions } from "store/auth";
@@ -35,7 +35,7 @@ const Login = () => {
     setInputError(copyOfInputError);
   };
 
-  const handleFormSumbit = (event) => {
+  const handleFormSubmit = (event) => {
     event.preventDefault();
 
     const { error } = validate(loginInputs, loginSchema);
@@ -54,7 +54,7 @@ const Login = () => {
     axios
       .post("/users/login", loginInputs)
       .then((response) => {
-        console.log("login was successful!", response);
+        //login was successful
         localStorage.setItem("token", response.data.token);
 
         /* sending the content of the token to a redux variable */
@@ -68,7 +68,7 @@ const Login = () => {
           })
           .catch((error) => {
             toast.error(
-              `an error occured when retrieving user info from the server: ${error.response.data}`,
+              `an error occurred when retrieving user info from the server: ${error.response.data}`,
               {
                 position: "top-right",
                 autoClose: 5000,
@@ -89,7 +89,7 @@ const Login = () => {
       })
       .catch((error) => {
         toast.error(
-          `an error occured when sending data to the server: ${error.response.data}`,
+          `an error occurred when sending data to the server: ${error.response.data}`,
           {
             position: "top-right",
             autoClose: 5000,
@@ -165,7 +165,7 @@ const Login = () => {
         <button
           type="submit"
           className="btn btn-primary"
-          onClick={handleFormSumbit}
+          onClick={handleFormSubmit}
         >
           Submit
         </button>

@@ -1,6 +1,9 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import { authActions } from "store/auth";
+
+/* cSpell:disable */
 
 const initialData = [
   {
@@ -83,16 +86,22 @@ const useAddCardsToSite = () => {
       dispatch(authActions.logout);
       localStorage.clear();
       for (let user of initialData) {
-        let response = await axios.post(
-          "/users/register",
-          returnCleanUser(user)
-        );
+        await axios.post("/users/register", returnCleanUser(user));
         for (let show of user) {
-          let response = await axios.post("/cards/", show);
+          await axios.post("/cards/", show);
         }
       }
     } catch (error) {
-      console.log("could not upload shows", error);
+      toast.error("could not upload shows", error, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
     return;
   };

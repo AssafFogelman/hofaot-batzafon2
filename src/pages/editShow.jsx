@@ -2,7 +2,6 @@ import axios from "axios";
 import { Fragment, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom/cjs/react-router-dom";
-import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import { toast } from "react-toastify";
 import editShowSchema from "validation/editShow.validation";
 import validate from "validation/validate";
@@ -93,10 +92,9 @@ const EditShow = () => {
     setInputError(copyOfInputError);
   };
 
-  const handleFormSumbit = (event) => {
+  const handleFormSubmit = (event) => {
     event.preventDefault();
     const { error } = validate(addShowInputs, editShowSchema);
-    console.log("validation error:", error);
     if (error) {
       setInputError((current) => {
         let copyOfInputError = JSON.parse(JSON.stringify(current));
@@ -120,13 +118,11 @@ const EditShow = () => {
     axios
       .put("/cards/" + serverShowId, show_goodFormat)
       .then((response) => {
-        console.log("the show was edited!", response);
-        console.log("the show:", show_goodFormat);
         history.push("/myshows");
       })
       .catch((error) => {
         toast.error(
-          `an error occured when sending data to the server: ${error.response.data}`,
+          `an error occurred when sending data to the server: ${error.response.data}`,
           {
             position: "top-right",
             autoClose: 5000,
@@ -146,8 +142,8 @@ const EditShow = () => {
       <h1>ערוך הופעה</h1>
       <form>
         <div className="mb-3">
-          <label htmlFor="exampleInputPerfomanceTitle1" className="form-label">
-            Perfomance Title
+          <label htmlFor="exampleInputPerformanceTitle1" className="form-label">
+            Performance Title
           </label>
           <input
             type="text"
@@ -202,7 +198,7 @@ const EditShow = () => {
         </div>
         <div className="mb-3">
           <label htmlFor="exampleInputPerformanceDate1" className="form-label">
-            Date of the preformance
+            Date of the performance
           </label>
           <input
             type="date"
@@ -263,7 +259,7 @@ const EditShow = () => {
         <button
           type="submit"
           className="btn btn-primary"
-          onClick={handleFormSumbit}
+          onClick={handleFormSubmit}
         >
           Submit
         </button>

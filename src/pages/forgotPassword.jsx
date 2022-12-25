@@ -30,11 +30,9 @@ const ForgotPassword = () => {
       .then(({ data }) => {
         //a message that says that a link was sent to the users email address
         setSuccess(true);
-        console.log(data);
       })
       .catch((err) => {
         setEmailError(true);
-        console.log(err);
       });
   };
   return (

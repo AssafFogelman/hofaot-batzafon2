@@ -71,10 +71,9 @@ const AddShow = () => {
     setInputError(copyOfInputError);
   };
 
-  const handleFormSumbit = (event) => {
+  const handleFormSubmit = (event) => {
     event.preventDefault();
     const { error } = validate(addShowInputs, addShowSchema);
-    console.log("validation error:", error);
     if (error) {
       setInputError((current) => {
         let copyOfInputError = JSON.parse(JSON.stringify(current));
@@ -98,13 +97,11 @@ const AddShow = () => {
     axios
       .post("/cards/", show_goodFormat)
       .then((response) => {
-        console.log("the show was added!", response);
-        console.log("the show:", show_goodFormat);
         history.push("/myshows");
       })
       .catch((error) => {
         toast.error(
-          `an error occured when sending data to the server: ${error.response.data}`,
+          `an error occurred when sending data to the server: ${error.response.data}`,
           {
             position: "top-right",
             autoClose: 5000,
@@ -124,8 +121,8 @@ const AddShow = () => {
       <h1>הוסף הופעה</h1>
       <form>
         <div className="mb-3">
-          <label htmlFor="exampleInputPerfomanceTitle1" className="form-label">
-            Perfomance Title
+          <label htmlFor="exampleInputPerformanceTitle1" className="form-label">
+            Performance Title
           </label>
           <input
             type="text"
@@ -180,7 +177,7 @@ const AddShow = () => {
         </div>
         <div className="mb-3">
           <label htmlFor="exampleInputPerformanceDate1" className="form-label">
-            Date of the preformance
+            Date of the performance
           </label>
           <input
             type="date"
@@ -201,7 +198,7 @@ const AddShow = () => {
         </div>
         <div className="mb-3">
           <label htmlFor="url" className="form-label">
-            background picture for the preformance ad
+            background picture for the performance ad
           </label>
           <p>*optional</p>
           <input
@@ -241,7 +238,7 @@ const AddShow = () => {
         <button
           type="submit"
           className="btn btn-primary"
-          onClick={handleFormSumbit}
+          onClick={handleFormSubmit}
         >
           Submit
         </button>

@@ -26,7 +26,6 @@ const MyShows = () => {
         setShowsArray(data);
         showsCarbonCopy = data;
       } catch (error) {
-        console.log("error", error);
         toast.error(
           `could not retrieve data from server: ${error.response.statusText}`,
           {
@@ -44,6 +43,7 @@ const MyShows = () => {
       //sort the array automatically by initial instructions
       handleSortChange();
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSortChange = (event) => {
@@ -104,7 +104,7 @@ const MyShows = () => {
     let regex = new RegExp(inputCopy.filterValue, "i");
 
     /*! will this work with dates? 
-        how do we add globl search? */
+        how do we add global search? */
 
     //make a usable copy of the Shoes Carbon Copy
 

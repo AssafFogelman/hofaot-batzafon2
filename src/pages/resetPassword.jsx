@@ -31,7 +31,7 @@ const ResetPassword = () => {
   const handleSubmit = (ev) => {
     ev.preventDefault();
 
-    // joi validaton
+    // joi validation
     const { error, value: validatedValue } = validate(
       { password },
       resetPasswordSchema
@@ -46,7 +46,7 @@ const ResetPassword = () => {
       .post("/users/resetpassword/" + token, validatedValue)
       .then(({ data }) => {
         setSuccess(true);
-        console.log("login was successful!", data);
+        //login was successful
 
         //storing the token to the local storage
         localStorage.setItem("token", data.token);
@@ -57,7 +57,7 @@ const ResetPassword = () => {
         //storing basic user token data in redux
         dispatch(authActions.login(tokenData));
 
-        //retreiving expanded user data
+        //retrieving expanded user data
         axios
           .get("/users/userInfo")
           .then((response) => {
@@ -66,7 +66,7 @@ const ResetPassword = () => {
           })
           .catch((error) => {
             toast.error(
-              `an error occured when retrieving user info from the server: ${error.response.data}`,
+              `an error occurred when retrieving user info from the server: ${error.response.data}`,
               {
                 position: "top-right",
                 autoClose: 5000,
@@ -80,8 +80,6 @@ const ResetPassword = () => {
             );
           });
 
-        console.log(data);
-
         setTimeout(() => {
           if (tokenData.biz) {
             history.push("/myshows");
@@ -91,7 +89,6 @@ const ResetPassword = () => {
         }, 2000);
       })
       .catch((err) => {
-        console.log(err);
         if (err.response.status === 401) setInvalidToken(true);
         if (err.response.data.error.errorCode === 409) setSamePassword(true);
       });

@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Route, Redirect } from "react-router-dom";
-import { useParams } from "react-router-dom/cjs/react-router-dom";
 
 const ProtectResetPassword = ({ component: Page, ...rest }) => {
   const token = rest.computedMatch.params.token;
@@ -10,6 +9,7 @@ const ProtectResetPassword = ({ component: Page, ...rest }) => {
 
   useEffect(() => {
     checkTokenValidity();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const checkTokenValidity = async () => {
@@ -20,7 +20,7 @@ const ProtectResetPassword = ({ component: Page, ...rest }) => {
       setLoaded(true);
       // return <Route {...rest} render={(props) => <Page {...props} />} />;
     } catch (error) {
-      console.log("there was a problem with the token verification");
+      //there was a problem with the token verification
       setLoaded(true);
       // return <Route {...rest} render={(props) => <Redirect to="/403" />} />;
     }

@@ -3,10 +3,9 @@ import jwt_decode from "jwt-decode";
 import { useState } from "react";
 import { Fragment } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { authActions } from "store/auth";
-import loginSchema from "validation/login.validation";
 import userRegisterSchema from "validation/register_user.validation";
 import validate from "validation/validate";
 
@@ -39,12 +38,10 @@ const RegisterUser = () => {
     setInputError(copyOfInputError);
   };
 
-  const handleFormSumbit = (event) => {
+  const handleFormSubmit = (event) => {
     event.preventDefault();
-    console.log("we got to handleFormSumbit");
-    /* user-side Joi vlidation */
+    /* user-side Joi validation */
     const { error } = validate(regUserInputs, userRegisterSchema);
-    console.log("error", error);
     if (error) {
       setInputError((current) => {
         let copyOfInputError = JSON.parse(JSON.stringify(current));
@@ -56,19 +53,17 @@ const RegisterUser = () => {
       });
       return;
     }
-    console.log("regUserInputs", regUserInputs);
     axios
       .post("/users/register", regUserInputs)
       .then((response) => {
         /* logging in in order to get the token */
-        console.log("response", response);
         axios
           .post("/users/login", {
             email: regUserInputs.email,
             password: regUserInputs.password,
           })
           .then((response) => {
-            console.log("login was successful!", response);
+            //login was successful
             localStorage.setItem("token", response.data.token);
             /* sending the content of the token to a redux variable */
             let tokenData = jwt_decode(response.data.token);
@@ -84,9 +79,8 @@ const RegisterUser = () => {
             dispatch(authActions.saveUserInfo(copyOfRegUserInputs));
           })
           .catch((error) => {
-            console.log("error", error);
             toast.error(
-              `an error occured when sending data to the server for logging-in: ${error.response.data}`,
+              `an error occurred when sending data to the server for logging-in: ${error.response.data}`,
               {
                 position: "top-right",
                 autoClose: 5000,
@@ -105,7 +99,7 @@ const RegisterUser = () => {
       })
       .catch((error) => {
         toast.error(
-          `an error occured when sending data to the server: ${error.response.data}`,
+          `an error occurred when sending data to the server: ${error.response.data}`,
           {
             position: "top-right",
             autoClose: 5000,
@@ -190,7 +184,7 @@ const RegisterUser = () => {
         <button
           type="submit"
           className="btn btn-primary"
-          onClick={handleFormSumbit}
+          onClick={handleFormSubmit}
         >
           Submit
         </button>

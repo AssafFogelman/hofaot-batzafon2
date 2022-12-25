@@ -1,5 +1,4 @@
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { authActions } from "store/auth";
 
@@ -13,7 +12,7 @@ const useAutoLogin = () => {
     // and it dispatches the tokenData.
     try {
       if (!tokenData) {
-        console.log("no tokenData was entered");
+        //no tokenData was entered
         return false;
       }
 
@@ -21,10 +20,8 @@ const useAutoLogin = () => {
 
       dispatch(authActions.saveUserInfo(data));
       dispatch(authActions.login(tokenData));
-      console.log("auto login was successful!");
       return true;
     } catch (error) {
-      console.log("there was a problem with the auto-login", error);
       return false;
     }
   };
